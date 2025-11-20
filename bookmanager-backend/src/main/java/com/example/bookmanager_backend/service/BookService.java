@@ -3,6 +3,7 @@ package com.example.bookmanager_backend.service;
 import com.example.bookmanager_backend.model.Book;
 import com.example.bookmanager_backend.repository.BookRepository;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.PutMapping;
 
 import java.util.List;
 import java.util.Optional;
@@ -29,5 +30,18 @@ public class BookService {
 
     public void deleteBookById(Long id) {
         bookRepository.deleteById(id);
+    }
+
+    @PutMapping("/{id}")
+    public Book updateBook(Long id, Book book) {
+        Book existing = bookRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Book not found"));
+
+        existing.setTitle(book.getTitle());
+        existing.setAuthor(book.getAuthor());
+        existing.setPublicationYear(book.getPublicationYear());
+        existing.setStatus(book.getStatus());
+
+        return bookRepository.save(existing);
     }
 }
