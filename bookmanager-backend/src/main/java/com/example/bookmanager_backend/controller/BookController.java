@@ -3,6 +3,7 @@ package com.example.bookmanager_backend.controller;
 import com.example.bookmanager_backend.model.Book;
 import com.example.bookmanager_backend.repository.BookRepository;
 import com.example.bookmanager_backend.service.BookService;
+import jakarta.validation.Valid;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -34,7 +35,7 @@ public class BookController {
     }
 
     @PostMapping
-    public Book addBook(@RequestBody Book book){
+    public Book addBook(@Valid @RequestBody Book book){
         return bookService.addBook(book);
     }
 
@@ -45,7 +46,7 @@ public class BookController {
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<Book> updateBook(@PathVariable Long id, @RequestBody Book book){
+    public ResponseEntity<Book> updateBook(@PathVariable Long id, @Valid @RequestBody Book book){
         return ResponseEntity.ok(bookService.updateBook(id, book));
     }
 }
