@@ -20,9 +20,9 @@ public class Book {
    @Id
    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-   @NotBlank
+   @NotBlank(message = "Tytuł nie może być pusty")
    private String title;
-   @NotBlank
+   @NotBlank(message = "Autor jest wymagany")
    private String author;
    @Min(1)
    @Max(2100)
